@@ -196,7 +196,7 @@ class HtmlConverter
      *
      * @return string
      */
-    protected function recursivelyDecode($markdown)
+    public function recursivelyDecode($markdown)
     {
         $new_markdown = html_entity_decode($markdown, ENT_QUOTES, 'UTF-8');
         if ($new_markdown === $markdown) {
@@ -213,7 +213,7 @@ class HtmlConverter
      */
     protected function sanitize($markdown)
     {
-        $markdown = $this->recursivelyDecode($markdown);
+        $markdown = html_entity_decode($markdown, ENT_QUOTES, 'UTF-8');
         $markdown = preg_replace('/<!DOCTYPE [^>]+>/', '', $markdown); // Strip doctype declaration
         $unwanted = array('<html>', '</html>', '<body>', '</body>', '<head>', '</head>', '<?xml encoding="UTF-8">', '&#xD;');
         $markdown = str_replace($unwanted, '', $markdown); // Strip unwanted tags
